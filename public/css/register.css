@@ -1,0 +1,42 @@
+body {
+        background: url('/img/background.png') no-repeat center center fixed;
+        background-size: cover;
+        overflow: hidden;
+    }
+
+    .bard {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        width: 1100px;
+        height: auto;
+        pointer-events: none;
+        animation: moveBard 3s forwards;
+    }
+
+    @keyframes moveBard { 0% { right: -500px; } 100% { right: 0; } }
+
+    .logo {
+        position: absolute;
+        top: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 300px;
+        height: auto;
+    }
+
+    .toast {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #4caf50;
+        color: white;
+        padding: 15px 25px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        display: none;
+        z-index: 1000;
+        font-size: 1.2rem;
+        text-align: center;
+    }

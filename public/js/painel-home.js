@@ -1,0 +1,28 @@
+async function LoadContent(url) {
+    try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error('Erro ao carregar conteúdo');
+        const html = await response.text();
+        document.getElementById('mainContent').innerHTML = html;
+
+        if (url.includes('/donate/content')) {
+            requestAnimationFrame(initializeDonateFeatures);
+        }
+    } catch (error) {
+        console.error('Erro:', error);
+        document.getElementById('mainContent').innerHTML = '<p>Erro ao carregar conteúdo.</p>';
+    }
+}
+
+document.querySelectorAll('.sidebar a').forEach(link => {
+    link.addEventListener('click', e => {
+        e.preventDefault();
+        document.querySelectorAll('.sidebar a').forEach(el => el.classList.remove('active'));
+        link.classList.add('active');
+
+        if (link.id === 'linkDonate') LoadContent('/donate/content');
+        else if (link.id === 'linkDashboard') LoadContent('/dashboard/content');
+        else if (link.id === 'linkMinhasDoacoes') LoadContent('/minhas-doacoes/content');
+        else if (link.id === 'linkMetasDoacao') LoadContent('/metas-doacao/content');
+    });
+});

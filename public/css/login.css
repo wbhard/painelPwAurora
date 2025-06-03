@@ -1,0 +1,38 @@
+html, body {
+      overflow: hidden;
+      touch-action: none;
+    }
+
+    body {
+        background: url('/img/background.png') no-repeat center center fixed;
+        background-size: cover;
+        overflow: hidden;
+    }
+
+    .bard {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        width: 1100px;
+        height: auto;
+        pointer-events: none;
+        animation: moveBard 3s forwards;
+    }
+
+    @keyframes moveBard {
+        0% {
+        right: -500px;
+        }
+        100% {
+        right: 0;
+        }
+    }
+
+    .logo {
+        position: fixed;
+        top: 160px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 350px;
+        height: auto;
+    }

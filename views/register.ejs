@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/css/output.css" rel="stylesheet">
+  <link href="/css/register.css" rel="stylesheet">
+  <title>Registrar - Painel Jogador</title>
+</head>
+<body class="flex items-center justify-center h-screen">
+  <img src="/img/bard.png" alt="Bard" class="bard">
+
+  <div class="bg-white p-8 rounded shadow-md max-w-sm w-auto relative z-10">
+    <img src="/img/logo_PWAurora.png" alt="Logo PW Aurora" class="logo">
+    <h1 class="text-2xl font-bold mb-4 text-center mt-16">Registrar</h1>
+    <form action="/register" method="POST" class="space-y-3">
+      <input type="text" name="truename" placeholder="Nome Pessoal" class="w-full p-2 border rounded" required>
+      <input type="text" name="name" placeholder="Login" class="w-full p-2 border rounded" required>
+      <input type="email" name="email" placeholder="Email" class="w-full p-2 border rounded" required>
+      <input type="password" name="password" placeholder="Senha" class="w-full p-2 border rounded" required>
+      <input type="password" name="confirmPassword" placeholder="Confirmar Senha" class="w-full p-2 border rounded" required>
+      <select name="prompt" class="w-full p-2 border rounded" required>
+        <option value="">Selecione a Pergunta Secreta</option>
+        <option value="1">Qual o nome do seu primeiro animal?</option>
+        <option value="2">Qual a cidade de nascimento da sua mãe?</option>
+      </select>
+      <input type="text" name="answer" placeholder="Resposta Secreta" class="w-full p-2 border rounded" required>
+      <div class="flex items-center">
+        <input type="checkbox" name="termos" id="termos" class="mr-2" required>
+        <label for="termos" class="text-sm">Li e concordo com os <a href="#" class="text-blue-500">Termos de Uso</a></label>
+      </div>
+      <button type="submit" class="w-full bg-blue-500 text-white p-2 rounded">Registrar</button>
+    </form>
+    <p class="text-center mt-4">Já tem uma conta? <a href="/login" class="text-blue-500">Acessar Conta</a></p>
+  </div>
+
+  <% if (mensagem) { %>
+  <div class="toast" id="toast"><%= mensagem %></div>
+  <% } %>
+
+  <script src="/js/register.js"></script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<head>
+  <link rel="stylesheet" href="/css/donate.css">
+</head>
+
+
+<body>
+<h1 class="title">Escolha um pacote de doação:</h1>
+
+<div class="donation-packages">
+  <% cashPackages.forEach(pkg => { %>
+    <div class="package" id="<%= pkg.id %>" data-price="<%= pkg.price %>" data-cash="<%= pkg.cash %>">
+      <img src="<%= pkg.image %>" alt="<%= pkg.name %>" />
+      <div class="description">Recebido ao comprar:</div>
+      <div class="cash"><%= Number(pkg.cash).toLocaleString('pt-BR') %> <a>Gold</a></div>
+      <div class="priceDescription">Preço:</div>
+      <div class="price"><%= Number(pkg.price).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) %></div>
+    </div>
+  <% }) %>
+</div>
+
+
+<div class="payment-details-container">
+  <div class="payment-summary">
+    <h3>Resumo do Pedido</h3>
+    <h4>Ainda estou mexendo nessa carniça.</h4>
+    <div class="summary-item">
+      <span>Bônus Pagamento:</span>
+      <span><strong><a id="selected-bonus-payment">0</a> GOLD</strong></span>
+    </div>
+    <div class="summary-item">
+      <span>Cupom 1:</span>
+      <span><strong><a id="coupon1" data-id="0">0</a> GOLD</strong> (<b id="detail-coupon1" data-id="0">N/A</b>)</span>
+    </div>
+    <div class="summary-item">
+      <span>Cupom 2:</span>
+      <span><strong><a id="coupon2" data-id="0">0</a> GOLD</strong> (<b id="detail-coupon2" data-id="0">N/A</b>)</span>
+    </div>
+    <div class="summary-total">
+      <span>Total de Gold:</span>
+      <span><strong><a id="selected-package-total-gold">0</a> GOLD</strong></span>
+    </div>
+  </div>
+
+  <div id="toast-message" class="toast-message-coupon">Cupom aplicado com sucesso!</div>
+  <div class="payment-details-container-form2">
+    <div class="promo">
+      <img src="/img/gift-box.png" alt="a" class="icon-img">
+      <div class="promo-details">
+        <h3>Tem um código promocional?</h3>
+        <a>Insira abaixo para ganhar uma bonificação em <b>Gold</b>!</a>
+      </div>
+    </div>
+    <div class="input-cupom-container">
+      <input type="text" class="input-cupom" placeholder="Digite o código..." />
+      <button class="btn-cupom">Verificar</button>
+    </div>
+  
+    <div class="payment-method">
+      <label for="payment-platform">Escolha por onde pretende efetuar o pagamento</label>
+      <select id="payment-platform" name="payment-platform">
+        <option value="" disabled selected>-</option>
+        <% paymentMethods.forEach(method => { %>
+          <option value="<%= method.value %>"><%= method.label %></option>
+        <% }) %>
+      </select>
+    </div>
+
+  
+  <div class="finalizar-pedido-container">
+    <button id="btn-finalize-donate" class="btn-finalizar-pedido">Finalizar Pedido</button>
+  </div>
+
+  </div>
+</div>
+
+<div class="footer">
+  <div id="finalizar-pedido-section" class="finalizar-pedido-section">
+    <div class="finalizar-info">
+      <h2>Pagamento PIX</h2>
+      <p>Valor do Pix: <span id="valor-pix"></span></p>
+      <p>Total de Gold: <span id="valor-gold"></span></p>
+      <button id="btn-close-finalize" class="btn-close-finalize">Fechar</button>  <!-- Novo botão -->
+      <img id="qr-pix-final" src="" alt="QR Code Pix">
+    </div> 
+  </div>
+</div>
+</body>

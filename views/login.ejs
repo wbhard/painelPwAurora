@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Login - Painel do Jogador</title>
+  <link rel="stylesheet" href="/css/output.css" >
+  <link rel="stylesheet" href="/css/login.css" >
+</head>
+<body class="flex items-center justify-center h-screen">
+  <img src="/img/bard.png" alt="Bard" class="bard">
+  <div class="bg-white p-8 rounded shadow-md max-w-sm w-auto relative z-10">
+    <img src="/img/logo_PWAurora.png" alt="Logo PW Aurora" class="logo">
+    <h1 class="text-2xl font-bold mb-4 text-center mt-16">Acessar Conta</h1>
+    <form action="/login" method="POST">
+      <input class="w-full p-2 border mb-4" type="text" name="name" placeholder="Login" required>
+      <input class="w-full p-2 border mb-4" type="password" name="password" placeholder="Senha" required>
+      <button class="w-full bg-blue-500 text-white p-2 rounded" type="submit">Entrar</button>
+    </form>
+    <% if (typeof error !== 'undefined') { %>
+      <p class="text-red-500 mt-2"><%= error %></p>
+    <% } %>
+    <p class="text-center mt-4">Não possui uma conta? <a href="/register" class="text-blue-500">Registre-se agora</a></p>
+  </div>
+</body>
+</html>
