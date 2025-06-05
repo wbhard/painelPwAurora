@@ -5,6 +5,10 @@ const mongoose = require('mongoose');  // Banco existente (login/cadastro)
 const cors = require("cors");
 const path = require('path');
 const { QrCodePix } = require('qrcode-pix');
+// Rota de dashboard
+app.get('/', (req, res) => {
+  res.send('Teste Rota Raiz OK!');
+});
 
 // Configuração e conexão com GameDB
 // const GameDBClient = require('./gamedb-client');
@@ -87,10 +91,6 @@ app.get('/success', (req, res) => res.send('✅ Pagamento aprovado!'));
 app.get('/failure', (req, res) => res.send('❌ Pagamento falhou!'));
 app.get('/pending', (req, res) => res.send('⏳ Pagamento pendente.'));
 
-// Rota de dashboard
-app.get('/', (req, res) => {
-  res.render('dashboard');
-});
 
 // Inicializa servidor
 const PORT = process.env.PORT || 3000;
