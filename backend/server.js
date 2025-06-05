@@ -1,43 +1,47 @@
 require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
-const mongoose = require('mongoose');  // Banco existente (login/cadastro)
-const cors = require("cors");
+const mongoose = require('mongoose'); // Banco MongoDB para login/cadastro
+const cors = require('cors');
 const path = require('path');
 const { QrCodePix } = require('qrcode-pix');
 
-
-// Inicialização do app Express
+// Inicializa app
 const app = express();
+
+// Middlewares
 app.use(cors());
 app.use(express.static('javascript'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(express.json());
+
+// View engine
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '..', 'views'));
 
-// Configuração de sessões
+// Sessões
 app.use(session({
   secret: 'segredo123',
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
 }));
 
-// Importação e uso de rotas
+// Importa rotas
 const contentRoutes = require('./routes/contentRoutes');
 const authenticationRoutes = require('./routes/AuthenticationRoutes');
 const couponRoutes = require('./routes/couponsRoutes');
 const mercadopagoRoutes = require('./routes/mercadopagoRoutes');
 const webhookRoutes = require('./routes/webhookRoutes');
 
+// Usa rotas
 app.use('/', authenticationRoutes);
 app.use('/', contentRoutes);
 app.use('/', couponRoutes);
 app.use('/api', mercadopagoRoutes);
 app.use('/api', webhookRoutes);
 
-// Rota antiga do QrCodePix (local)
+// Geração local de QR Code Pix
 const pixKey = "17296049782";
 const merchantName = "Daniel da Silva Gomes Neto";
 const merchantCity = "RIODEJANEIRO";
@@ -45,8 +49,8 @@ const description = "Doação via site";
 
 app.get("/api/pix-qr", async (req, res) => {
   const amount = req.query.amount;
-  console.log("Amount:", amount);
   if (!amount) return res.status(400).json({ error: "Amount is required" });
+
   try {
     const qrCodePix = QrCodePix({
       version: '01',
@@ -57,24 +61,23 @@ app.get("/api/pix-qr", async (req, res) => {
       message: description,
       value: parseFloat(amount),
     });
+
     const payload = qrCodePix.payload();
     const base64 = await qrCodePix.base64();
     res.json({ payload, qrCodeBase64: base64 });
   } catch (error) {
-    console.error("❌ Erro ao gerar QR local:", error.message);
+    console.error("❌ Erro ao gerar QR:", error.message);
     res.status(500).json({ error: "Erro ao gerar QR" });
   }
 });
 
-// Rotas de retorno do Mercado Pago
+// Rotas pós-pagamento (Mercado Pago)
 app.get('/success', (req, res) => res.send('✅ Pagamento aprovado!'));
 app.get('/failure', (req, res) => res.send('❌ Pagamento falhou!'));
 app.get('/pending', (req, res) => res.send('⏳ Pagamento pendente.'));
-
 
 // Inicializa servidor
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`🚀 Servidor rodando na porta ${PORT}`);
 });
-
