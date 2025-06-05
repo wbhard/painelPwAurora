@@ -53,6 +53,12 @@ app.use('/', couponRoutes);
 app.use('/api', mercadopagoRoutes);
 app.use('/api', webhookRoutes);
 
+//rota para o dashboard
+
+app.get('/dashboard', (req, res) => {
+  res.render('dashboard');
+});
+
 // Rota antiga do QrCodePix (local)
 const pixKey = "17296049782";
 const merchantName = "Daniel da Silva Gomes Neto";
