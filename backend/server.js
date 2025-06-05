@@ -41,6 +41,11 @@ app.use('/', couponRoutes);
 app.use('/api', mercadopagoRoutes);
 app.use('/api', webhookRoutes);
 
+// Rota principal (depois das outras)
+app.get('/', (req, res) => {
+  res.render('dashboard'); // Renderiza views/dashboard.ejs
+});
+
 // Geração local de QR Code Pix
 const pixKey = "17296049782";
 const merchantName = "Daniel da Silva Gomes Neto";
