@@ -87,12 +87,14 @@ app.get('/success', (req, res) => res.send('✅ Pagamento aprovado!'));
 app.get('/failure', (req, res) => res.send('❌ Pagamento falhou!'));
 app.get('/pending', (req, res) => res.send('⏳ Pagamento pendente.'));
 
+// Rota principal do dashboard
+app.get('/', (req, res) => {
+  res.render('dashboard');
+});
+
 // Inicializa servidor
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`🚀 Servidor rodando na porta ${PORT}`);
 });
 
-app.get('/', (req, res) => {
-  res.render('dashboard');
-});
