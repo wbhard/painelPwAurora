@@ -5,27 +5,7 @@ const mongoose = require('mongoose');  // Banco existente (login/cadastro)
 const cors = require("cors");
 const path = require('path');
 const { QrCodePix } = require('qrcode-pix');
-// Rota de dashboard
-app.get('/', (req, res) => {
-  res.send('Teste Rota Raiz OK!');
-});
 
-// Configuração e conexão com GameDB
-// const GameDBClient = require('./gamedb-client');
-////const gameDBClient = new GameDBClient('192.168.0.112', 29400);
-
-//let connected = false;
-//async function connectToGameDB() {
- // try {
-  //  await gameDBClient.connect();
-  //  connected = true;
-  //  console.log('✅ Conectado ao gamedbd');
- // } catch (err) {
-  //  console.error('❌ Falha ao conectar ao gamedbd:', err);
-   // setTimeout(connectToGameDB, 5000);
-  //}
-//}
-//connectToGameDB(); */
 
 // Inicialização do app Express
 const app = express();
