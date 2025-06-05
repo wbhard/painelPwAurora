@@ -88,7 +88,7 @@ app.get('/failure', (req, res) => res.send('❌ Pagamento falhou!'));
 app.get('/pending', (req, res) => res.send('⏳ Pagamento pendente.'));
 
 // Rota de dashboard
-app.get('/dashboard', (req, res) => {
+app.get('/', (req, res) => {
   res.render('dashboard');
 });
 
