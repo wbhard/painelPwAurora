@@ -7,7 +7,7 @@ const path = require('path');
 const { QrCodePix } = require('qrcode-pix');
 
 // Configuração e conexão com GameDB
-const GameDBClient = require('./gamedb-client');
+/* const GameDBClient = require('./gamedb-client');
 const gameDBClient = new GameDBClient('192.168.0.112', 29400);
 
 let connected = false;
@@ -18,10 +18,10 @@ async function connectToGameDB() {
     console.log('✅ Conectado ao gamedbd');
   } catch (err) {
     console.error('❌ Falha ao conectar ao gamedbd:', err);
-    // setTimeout(connectToGameDB, 5000);
+    setTimeout(connectToGameDB, 5000);
   }
 }
-connectToGameDB();
+connectToGameDB(); */
 
 // Inicialização do app Express
 const app = express();
@@ -91,4 +91,8 @@ app.get('/pending', (req, res) => res.send('⏳ Pagamento pendente.'));
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`🚀 Servidor rodando na porta ${PORT}`);
+});
+
+app.get('/', (req, res) => {
+  res.render('dashboard');
 });
