@@ -9,7 +9,7 @@ import { createServer as createViteServer } from 'vite';
 
 //Routes
 import contentRoutes from './routes/contentRoutes.js';
-import authenticationRoutes from './routes/AuthenticationRoutes.js';
+import authenticationRoutes from './routes/authenticationRoutes.js';
 import couponRoutes from './routes/couponsRoutes.js';
 import mercadopagoRoutes from './routes/mercadopagoRoutes.js';
 import webhookRoutes from './routes/webhookRoutes.js';
