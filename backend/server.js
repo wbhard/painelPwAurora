@@ -5,7 +5,6 @@ import session from 'express-session';
 import cors from 'cors';
 import path from 'path';
 import { QrCodePix } from 'qrcode-pix';
-import { createServer as createViteServer } from 'vite';
 
 //Routes
 import contentRoutes from './routes/contentRoutes.js';
@@ -27,12 +26,7 @@ dotenv.config();
 async function startServer() {
   const app = express();
 
-  // Vite como middleware
-  const vite = await createViteServer({
-    server: { middlewareMode: true },
-    root: process.cwd(),
-  });
-  app.use(vite.middlewares);
+  app.use(express.static(path.join(__dirname, '../public')));
 
   // Middlewares
   app.use(cors());
