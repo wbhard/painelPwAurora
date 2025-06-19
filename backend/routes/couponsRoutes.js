@@ -1,9 +1,9 @@
-const express = require('express');
-const router = express.Router();
-const couponsPackages = require('../models/couponsPackages');
+import { Router } from 'express';
+import couponsPackages from '../models/couponsPackages.js';
+const router = Router();
 
 router.get('/api/coupons', (req, res) => {
   res.json(couponsPackages);
 });
 
-module.exports = router;
+export default router;

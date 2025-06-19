@@ -106,6 +106,7 @@
       text-align: left;
       background: #fff;
       border-radius: 6px;
+      height: 100%;
     }
     .donation-packages {
         display: flex;

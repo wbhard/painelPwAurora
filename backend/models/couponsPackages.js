@@ -35,4 +35,4 @@ const couponsPackages = [
     activated: 1,
   }
 ];
-module.exports = couponsPackages;
+export default couponsPackages;

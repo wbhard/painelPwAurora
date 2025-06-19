@@ -1,7 +1,9 @@
-const express = require('express');
+import express from 'express';
+import db from '../db.js';
+import crypto from 'crypto';
+
 const router = express.Router();
-const db = require('../db');
-const crypto = require('crypto');
+
 
 // Funções auxiliares de hash
 function gerarHashSHA1Base64(password) {
@@ -50,13 +52,13 @@ router.post('/login', async (req, res) => {
 
     req.session.userId = user.ID;
     req.session.userName = user.name;
-    console.log('Login bem-sucedido:', name);
+    console.log('Login bem-sucedido:', user.ID);
     res.redirect('/painel-home');
   } catch (error) {
-    //console.error('Erro no login:', error);
-    //res.status(500).send('Erro no login');
-    console.log('Login bem-sucedido:', "teste");
-    res.redirect('/painel-home');
+    console.error('Erro no login:', error);
+    res.status(500).send('Erro no login');
+    //console.log('Login bem-sucedido: Error', name);
+    //res.redirect('/painel-home');
   }
 });
 
@@ -78,4 +80,52 @@ router.get('/register', (req, res) => {
   res.render('register', { mensagem: req.query.mensagem || null });
 });
 
-module.exports = router;
+
+import { putUser } from '../controllers/putUser.js';
+
+router.post('/register', async (req, res) => {
+  const { truename, name, email, password, confirmPassword, prompt, answer } = req.body;
+
+  if (!name || !password || !confirmPassword || !email || !truename || !prompt || !answer) {
+    return res.redirect('/register?mensagem=Preencha todos os campos');
+  }
+
+  if (password !== confirmPassword) {
+    return res.redirect('/register?mensagem=Senhas não conferem');
+  }
+
+  try {
+    // Verifica se já existe usuário com o mesmo login no banco
+    const [existingUsers] = await db.query('SELECT ID FROM users WHERE name = ?', [name]);
+    if (existingUsers.length > 0) {
+      return res.redirect('/register?mensagem=Login já existente');
+    }
+
+    // Dados para envio via PutUser (opcode 3001)
+    const account = {
+      name,
+      password,
+      truename,
+      email,
+      prompt,
+      answer
+    };
+
+    const retcode = await putUser(account);
+
+    if (retcode === 0) {
+      return res.redirect('/login?mensagem=Conta criada com sucesso!');
+    } else {
+      return res.redirect(`/register?mensagem=Erro ao criar conta (retcode ${retcode})`);
+    }
+
+  } catch (error) {
+    console.error('Erro no registro via RPC:', error);
+    return res.redirect('/register?mensagem=Erro inesperado ao criar conta');
+  }
+});
+
+
+
+export default router;
+

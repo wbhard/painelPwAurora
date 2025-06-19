@@ -1,7 +1,6 @@
-const express = require('express');
-const router = express.Router();
-const { MercadoPagoConfig, Payment } = require('mercadopago');
-
+import { Router } from 'express';
+import { MercadoPagoConfig, Payment } from 'mercadopago';
+const router = Router();
 const client = new MercadoPagoConfig({ accessToken: process.env.MP_ACCESS_TOKEN });
 
 // Webhook único para todas as notificações do Mercado Pago
@@ -37,4 +36,4 @@ router.post('/mercadopago/webhook', async (req, res) => {
     }
 });
 
-module.exports = router;
+export default router;

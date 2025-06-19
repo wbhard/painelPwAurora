@@ -1,0 +1,25 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+<link href="/css/list-of-characters.css" rel="stylesheet">
+<div>
+  <div class="swiper">
+    <div class="swiper-wrapper">
+      <% personagens.forEach((p) => { %>
+        <div class="swiper-slide">
+          <div class="personagem-card">
+            <img src="/img/<%= p.classe %>.jpg" alt="Classe <%= p.classe %>">
+            <div class="info-extra">
+              <p><strong><%= p.nome %></strong></p>
+              <p>Level: <%= p.level %></p>
+              <!--<p>HP: <%= p.hp || '--' %></p>
+              <p>MP: <%= p.mp || '--' %></p>-->
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+    
+  </div>
+</div>

@@ -1,4 +1,4 @@
-const net = require('node:net');
+const net = require('net');
 
 class GameDBClient {
   constructor(host, port) {
@@ -6,203 +6,153 @@ class GameDBClient {
     this.port = port;
     this.socket = null;
     this.connected = false;
-    this.pendingRequests = new Map();
-    this.requestIdCounter = 1;
     this.buffer = Buffer.alloc(0);
+    this.pendingRequests = new Map();
   }
 
   connect() {
     return new Promise((resolve, reject) => {
       this.socket = new net.Socket();
-      
-      // Set up connection timeout
-      const connectionTimeout = setTimeout(() => {
-        reject(new Error('Connection timeout'));
-      }, 5000);
-      
+
       this.socket.connect(this.port, this.host, () => {
-        clearTimeout(connectionTimeout);
         this.connected = true;
-        console.log(`Connected to gamedbd at ${this.host}:${this.port}`);
+        console.log(`✅ Conectado ao gamedbd em ${this.host}:${this.port}`);
         resolve();
       });
-      
+
       this.socket.on('data', (data) => {
-        // Append new data to existing buffer
         this.buffer = Buffer.concat([this.buffer, data]);
-        
-        // Process complete packets
-        this.processBuffer();
+        this._tryParseResponse();
       });
-      
+
       this.socket.on('close', () => {
-        console.log('Connection to gamedbd closed');
+        console.log('🔌 Conexão encerrada');
         this.connected = false;
       });
-      
+
       this.socket.on('error', (err) => {
-        console.error('gamedbd connection error:', err);
-        if (!this.connected) {
-          clearTimeout(connectionTimeout);
-          reject(err);
-        }
+        console.error('❌ Erro de socket:', err);
+        reject(err);
       });
     });
   }
-  
-  disconnect() {
-    if (this.socket) {
-      this.socket.destroy();
-      this.socket = null;
-      this.connected = false;
-    }
-  }
-  
-  processBuffer() {
-    // This is a simplified packet processing logic
-    // You'll need to adjust based on your actual protocol
-    
-    while (this.buffer.length >= 10) { // Minimum packet size for a response
-      const responseType = this.buffer.readUInt16LE(0);
+
+  _tryParseResponse() {
+    while (this.buffer.length >= 10) {
+      const opcode = this.buffer.readUInt16LE(0);
       const requestId = this.buffer.readUInt32LE(2);
       const retcode = this.buffer.readInt32LE(6);
-      
-      // Determine packet size based on response type and retcode
-      let packetSize = 10; // Header size
-      
-      if (responseType === 4002 && retcode === 0) { // GetRole success
-        // For a successful GetRole response, we need to determine the size
-        // This is a simplified example - adjust based on your actual protocol
-        
-        // For this example, let's assume a fixed size for the Role structure
-        // In a real implementation, you would determine the size dynamically
-        packetSize = 200; // Example size
-        
-        if (this.buffer.length < packetSize) {
-          // Not enough data yet
-          return;
+
+      const handler = this.pendingRequests.get(requestId);
+      if (!handler) return;
+
+      if (retcode !== 0) {
+        handler.reject(new Error(`Erro do servidor: código ${retcode}`));
+        this.pendingRequests.delete(requestId);
+        this.buffer = Buffer.alloc(0);
+        return;
+      }
+
+      if (opcode === 0x0D49) { // RPC_GETUSERROLES
+        if (this.buffer.length < 14) return;
+
+        const count = this.buffer.readUInt32LE(10);
+        let offset = 14;
+        const roles = [];
+
+        for (let i = 0; i < count; i++) {
+          if (this.buffer.length < offset + 56) return; // 32 name, 4 id, 1+1+2+4+4+1+4
+
+          const roleId = this.buffer.readUInt32LE(offset); offset += 4;
+          const name = this.buffer.toString('utf8', offset, offset + 32).replace(/\0/g, ''); offset += 32;
+          const classId = this.buffer.readUInt8(offset++); 
+          const race = this.buffer.readUInt8(offset++);
+          const level = this.buffer.readUInt16LE(offset); offset += 2;
+          const mapId = this.buffer.readUInt32LE(offset); offset += 4;
+          const created = this.buffer.readUInt32LE(offset); offset += 4;
+          const deleted = this.buffer.readUInt8(offset++); 
+          const custom = this.buffer.readUInt32LE(offset); offset += 4;
+
+          roles.push({ roleId, name, classId, race, level, mapId, created, deleted, custom });
         }
+
+        this.pendingRequests.delete(requestId);
+        handler.resolve(roles);
+        this.buffer = this.buffer.slice(offset);
+        return;
       }
-      
-      // Extract the complete packet
-      const packetData = this.buffer.slice(0, packetSize);
-      
-      // Remove the processed packet from the buffer
-      this.buffer = this.buffer.slice(packetSize);
-      
-      // Handle the response
-      this.handleResponse(packetData);
+
+      handler.reject(new Error(`Opcode desconhecido: ${opcode}`));
+      this.pendingRequests.delete(requestId);
+      this.buffer = Buffer.alloc(0);
     }
   }
-  
-  handleResponse(data) {
-    const responseType = data.readUInt16LE(0);
-    const requestId = data.readUInt32LE(2);
-    const retcode = data.readInt32LE(6);
-    
-    // Get the pending request
-    const pendingRequest = this.pendingRequests.get(requestId);
-    if (!pendingRequest) {
-      console.warn(`Received response for unknown request ID: ${requestId}`);
-      return;
-    }
-    
-    // Clear the timeout and remove from pending requests
-    clearTimeout(pendingRequest.timeout);
-    this.pendingRequests.delete(requestId);
-    
-    // Process based on response type
-    if (responseType === 4002) { // GetRole response
-      if (retcode === 0) {
-        // Success - parse the Role structure
-        const roleData = this.parseRoleData(data, 10);
-        pendingRequest.resolve(roleData);
-      } else {
-        // Error
-        pendingRequest.reject(new Error(`GetRole failed with code: ${retcode}`));
-      }
-    } else {
-      pendingRequest.reject(new Error(`Unknown response type: ${responseType}`));
-    }
-  }
-  
-  parseRoleData(data, offset) {
-    // This is a simplified example - adjust based on your actual Role structure
-    const roleData = {
-      id: data.readUInt32LE(offset),
-    };
-    offset += 4;
-    
-    // Parse other fields based on your Role structure
-    // Example fields (adjust based on your actual structure)
-    roleData.userId = data.readUInt32LE(offset);
-    offset += 4;
-    
-    roleData.level = data.readUInt32LE(offset);
-    offset += 4;
-    
-    roleData.exp = data.readUInt32LE(offset);
-    offset += 4;
-    
-    roleData.money = data.readUInt32LE(offset);
-    offset += 4;
-    
-    // Parse name (assuming fixed-length string)
-    const nameBuffer = data.slice(offset, offset + 32);
-    roleData.name = this.parseNullTerminatedString(nameBuffer);
-    
-    return roleData;
-  }
-  
-  parseNullTerminatedString(buffer) {
-    let end = 0;
-    while (end < buffer.length && buffer[end] !== 0) {
-      end++;
-    }
-    return buffer.slice(0, end).toString('utf8');
-  }
-  
-  /**
-   * Get role details by ID
-   * @param {number} roleId - The ID of the role to retrieve
-   * @returns {Promise<Object>} - A promise that resolves to the role data
-   */
-  getRole(roleId) {
-    if (!this.connected) {
-      return Promise.reject(new Error('Not connected to gamedbd'));
-    }
-    
+
+  getRoleList(userid, requestId = 1) {
+    if (!this.connected) return Promise.reject(new Error('Não conectado ao gamedbd'));
+
     return new Promise((resolve, reject) => {
-      const requestId = this.requestIdCounter++;
-      
-      // Create request buffer for GetRole RPC (RPC_GETROLE = 4002)
-      const buffer = Buffer.alloc(10); // 2 (type) + 4 (requestId) + 4 (roleId)
-      
-      // RPC type for GetRole (4002)
-      buffer.writeUInt16LE(4002, 0);
-      
-      // Request ID for tracking the response
-      buffer.writeUInt32LE(requestId, 2);
-      
-      // Role ID
-      buffer.writeUInt32LE(roleId, 6);
-      
-      console.log(`Sending GetRole request for role ID ${roleId}`);
-      
-      // Store the pending request
-      this.pendingRequests.set(requestId, {
-        resolve,
-        reject,
-        timeout: setTimeout(() => {
-          this.pendingRequests.delete(requestId);
-          reject(new Error('Request timed out'));
-        }, 10000) // 10 second timeout
-      });
-      
-      // Send the request
-      this.socket.write(buffer);
+      const packet = Buffer.alloc(6 + 4);
+      packet.writeUInt16LE(0x0D49, 0); // opcode
+      packet.writeUInt32LE(requestId, 2);
+      packet.writeUInt32LE(userid, 6); // aqui é o userID numérico, não o login
+
+      this.pendingRequests.set(requestId, { resolve, reject });
+      this.socket.write(packet);
     });
   }
+
+  disconnect() {
+    if (this.socket) this.socket.destroy();
+    this.connected = false;
+  }
+}
+
+
+function parseUserRolesResponse(buffer) {
+  const roles = [];
+  let offset = 0;
+
+  const count = buffer.readUInt32LE(offset);
+  offset += 4;
+
+  for (let i = 0; i < count; i++) {
+    const roleId = buffer.readUInt32LE(offset);
+    offset += 4;
+
+    const nameBuffer = buffer.slice(offset, offset + 32);
+    const name = nameBuffer.toString('utf8').replace(/\0/g, '');
+    offset += 32;
+
+    const classId = buffer.readUInt8(offset++);
+    const race = buffer.readUInt8(offset++);
+    const level = buffer.readUInt16LE(offset);
+    offset += 2;
+
+    const mapId = buffer.readUInt32LE(offset);
+    offset += 4;
+
+    const timeCreated = buffer.readUInt32LE(offset);
+    offset += 4;
+
+    const deleteFlag = buffer.readUInt8(offset++);
+    const customData = buffer.readUInt32LE(offset);
+    offset += 4;
+
+    roles.push({
+      roleId,
+      name,
+      classId,
+      race,
+      level,
+      mapId,
+      timeCreated,
+      deleteFlag,
+      customData
+    });
+  }
+
+  return roles;
 }
 
 module.exports = GameDBClient;

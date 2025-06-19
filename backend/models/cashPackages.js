@@ -33,4 +33,4 @@ const cashPackages = [
   }
 ];
 
-module.exports = cashPackages;
+export default cashPackages;

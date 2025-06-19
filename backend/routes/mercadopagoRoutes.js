@@ -1,7 +1,6 @@
-const express = require('express');
-const router = express.Router();
-const { MercadoPagoConfig, Preference } = require('mercadopago');
-
+import { Router } from 'express';
+import { MercadoPagoConfig, Preference } from 'mercadopago';
+const router = Router();
 const client = new MercadoPagoConfig({ accessToken: process.env.MP_ACCESS_TOKEN });
 
 router.post('/mercadopago-checkout', async (req, res) => {
@@ -62,4 +61,4 @@ router.post('/mercadopago-checkout', async (req, res) => {
     }
 });
 
-module.exports = router;
+export default router;

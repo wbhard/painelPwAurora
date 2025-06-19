@@ -12,14 +12,14 @@
   <div class="topbar">
     <div class="logo">Painel do Jogador</div>
     <div class="user-profile">
+      <p><% userName %></p>
       <img src="https://i.imgur.com/5cA1RZJ.png" alt="Avatar">
-      <span>Bruce</span>
     </div>
   </div>
 
   <div class="sidebar">
     <div class="section-title">Início</div>
-    <a href="#" id="linkDashboard" ><i class="fas fa-home"></i><span>Dashboard</span></a>
+    <a href="#" id="linkListOfCharacters" ><i class="fas fa-home"></i><span>Meus Personagens</span></a>
 
     <div class="section-title">Donate</div>
     <a href="#" id="linkDonate"><i class="fas fa-donate"></i><span>Nova doação</span></a>
@@ -29,22 +29,20 @@
 
     <div class="section-title">Comércio</div>
     <a href="#"><i class="fas fa-shield-alt"></i><span>Emblema de clã</span></a>
-    <a href="#"><i class="fas fa-tasks"></i><span>Missão diária</span></a>
-    <a href="#"><i class="fas fa-globe"></i><span>Full Meridiano</span></a>
-    <a href="#"><i class="fas fa-certificate"></i><span>Full Títulos</span></a>
+    <!--<a href="#" id="linkListOfCharacters"><i class="fas fa-tasks"></i><span>Personagem</span></a>-->
+    <a href="#"><i class="fas fa-store"></i><span>Marketplace</span></a>
 
-    <div class="section-title">Suporte</div>
-    <a href="#"><i class="fas fa-user-cog"></i><span>Minha conta</span></a>
+    <div class="section-title">Configurações</div>
+      <a href="#"><i class="fas fa-user-cog"></i><span>Minha conta</span></a>
   </div>
 
   <div class="main" id="mainContent">
     <!-- Conteúdo inicial carregado aqui via JS -->
   </div>
 
-  <script src="/js/painel-home.js"></script>
+  <script type="module" src="/js/painel-home.js"></script>
   <script src="/js/donate.js"></script>
-    
-</script>
+  <script src="/js/list-of-characters.js"></script>
 
 </body>
 </html>
