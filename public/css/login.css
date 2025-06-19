@@ -25,21 +25,41 @@ body {
   position: fixed;
   bottom: 0;
   right: 0;
-  width: 1100px;
+  width: 55vw;
   height: auto;
+  max-height: 90vh;
   pointer-events: none;
   animation: moveBard 3s forwards;
   z-index: 0;
 }
 
+/* Animação */
 @keyframes moveBard {
   0% {
-    right: -500px;
+    right: -45vw;
   }
   100% {
     right: 0;
   }
 }
+
+/* 🔁 Responsividade extra para telas pequenas */
+@media screen and (max-width: 768px) {
+  .bard {
+    width: 55vw;
+    max-height: 60vh;
+    opacity: 0.5; /* opcional: diminui a opacidade em telas menores */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .bard {
+    width: 55vw;
+    max-height: 50vh;
+    opacity: 0.3; /* ainda mais suave em telas muito pequenas */
+  }
+}
+
 
 .logo {
   display: block;

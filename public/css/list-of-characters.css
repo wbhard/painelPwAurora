@@ -1,10 +1,10 @@
 .swiper {
-    max-width: 70%;
+    max-width: 960px;
     margin: 0 auto;
     padding: 40px 0;
     position: relative;
-    margin-left: 0.5%;
-    margin-right: 0.5%;
+    display: flex;
+    justify-content: center;
   }
 
   .swiper-slide {
@@ -82,3 +82,23 @@
   .swiper-scrollbar-drag {
     background: #333;
   }
+
+  @media (max-width: 768px) {
+  .swiper {
+    max-width: 95%;
+    padding: 20px 0;
+  }
+
+  .personagem-card {
+    width: 220px;
+    transform: scale(1);
+    opacity: 1;
+    margin-top: 20px;
+  }
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    width: 32px;
+    height: 32px;
+  }
+}

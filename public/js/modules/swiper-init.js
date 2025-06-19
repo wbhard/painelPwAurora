@@ -18,7 +18,7 @@ export function inicializarSwiper() {
         slidesPerView: 3,
       },
       480: {
-        slidesPerView: 1,
+        slidesPerView: 3,
       },
     },
     scrollbar: {
@@ -28,7 +28,7 @@ export function inicializarSwiper() {
     },
     breakpoints: {
       1024: { slidesPerView: 3 },
-      768: { slidesPerView: 2 },
+      768: { slidesPerView: 3 },
       480: { slidesPerView: 1 }
     }
   });

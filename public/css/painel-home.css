@@ -1,133 +1,204 @@
 * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f4f6f9;
-      display: flex;
-    }
+.toggle-button {
+  font-size: 24px;
+  background: none;
+  border: none;
+  color: #333;
+  cursor: pointer;
+  margin-right: 10px;
+  display: none;
+}
 
+@media screen and (max-width: 768px) {
+  .toggle-button {
+    display: block;
+  }
+}
+
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f4f6f9;
+    display: flex;
+  }
+
+  .sidebar {
+    width: 200px;
+    background: #151718;
+    color: #fff;
+    height: 100vh;
+    padding: 20px 10px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+    transition: width 0.3s;
+  }
+
+  .sidebar.collapsed {
+    width: 60px;
+  }
+
+  .sidebar.collapsed span {
+    display: none;
+  }
+
+  .sidebar .section-title {
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #797676;
+    margin: 20px 10px 10px;
+  }
+
+  .sidebar a {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    margin: 4px 0;
+    color: #5f5e5e;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background 0.2s, padding-left 0.2s;
+  }
+
+  .sidebar a:hover {
+    background: #1f1f2e00;
+    color: #f4f6f9;
+    padding-left: 25px;
+  }
+
+  .sidebar a.active {
+    background: #4639b900;
+    color: #fff;
+  }
+
+  .sidebar a i {
+    width: 20px;
+    text-align: center;
+    margin-right: 10px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .toggle-button {
+      display: block;
+    }
     .sidebar {
-      width: 12.5%;
-      background: #151718;
-      color: #fff;
-      min-height: 100vh;
-      padding: 20px 10px;   
+      transform: translateX(-100%);
       position: fixed;
-      top: 0px;
-      left: 0;
-      overflow-y: auto;
-    }
-
-    .sidebar .section-title {
-      font-size: 13px;
-      font-weight: bold;
-      text-transform: uppercase;
-      color: #797676;
-      margin: 20px 10px 10px;
-    }
-
-    .sidebar a {
-      display: flex;
-      align-items: center;
-      padding: 10px 20px;
-      margin: 4px 0;
-      color: #5f5e5e;
-      text-decoration: none;
-      border-radius: 8px;
-      transition: background 0.2s, padding-left 0.2s;
-    }
-
-    .sidebar a:hover {
-      background: #1f1f2e00;
-      color: #f4f6f9;
-      padding-left: 25px;
-    }
-
-    .sidebar a.active {
-      background: #4639b900;
-      color: #fff;
-    }
-
-    .sidebar a i {
-      width: 20px;
-      text-align: center;
-      margin-right: 10px;
-    }
-
-    .topbar {
-      position: fixed;
-      top: 0;
-      left: 12.5%;
-      right: 0;
-      height: 80px;
-      background: #ffffff;
-      color: #fff;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 20px;
       z-index: 1000;
     }
+    .sidebar.active {
+      transform: translateX(0);
+    }
+  }
 
-    .topbar .logo {
-      font-size: 20px;
-      font-weight: bold;
-      color: #000000;
-    }
+  .topbar {
+    position: fixed;
+    top: 0;
+    left: 200px;
+    right: 0;
+    height: 80px;
+    background: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 1000;
+    transition: left 0.3s ease;
+  }
 
-    .topbar .user-profile {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+  .sidebar.collapsed ~ .topbar {
+    left: 60px;
+  }
 
-    .topbar .user-profile img {
-      width: 40px;
-      height: 40px;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 2px solid #4e59ff;
+  @media screen and (max-width: 768px) {
+    .topbar {
+      left: 0 !important;
     }
+  }
 
-    .topbar .user-profile span {
-      font-weight: 500;
-    }
+  .topbar .logo {
+    font-size: 20px;
+    font-weight: bold;
+    color: #000000;
+  }
 
-    .main {
-      margin-left: 15%;
-      margin-top: 5%;
-      margin-right: 3%;
-      padding: 2px;
-      width: 100%;
-      text-align: left;
-      background: #fff;
-      border-radius: 6px;
-      height: 100%;
-    }
-    .donation-packages {
-        display: flex;
-        gap: 20px;
-        flex-wrap: wrap;
-        padding: 2%;
-        background-color: #fdfcfc;
-        margin-left: 2px;
-        border-radius: 3px;
-    }
+  .topbar .user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
 
-    .package {
-        background: #fff;
-        border-radius: 12px;
-        padding: 20px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        width: 250px;
-        transition: transform 0.2s, border 0.2s;
-        cursor: pointer;
-        border: 2px solid transparent;
-    }
+  .topbar .user-profile img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #4e59ff;
+  }
+
+  .topbar .user-profile span {
+    font-weight: 500;
+  }
+
+.main {
+  position: relative;
+  top: 80px;
+  left: 200px;
+  padding: 2%;
+  width: calc(100% - 200px);
+  background: #fff;
+  border-radius: 6px;
+  min-height: calc(100vh - 80px);
+  overflow-x: hidden;
+  transition: left 0.3s ease, width 0.3s ease;
+}
+
+/* Quando a sidebar estiver recolhida */
+.sidebar.collapsed ~ .main {
+  left: 60px;
+  width: calc(100% - 60px);
+}
+
+/* No mobile, a main ocupa a tela inteira */
+@media screen and (max-width: 768px) {
+  .main {
+    left: 0;
+    width: 100%;
+  }
+
+  .sidebar.active ~ .main {
+    filter: blur(2px);
+    pointer-events: none;
+  }
+}
+
+
+.donation-packages {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 2%;
+    background-color: #fdfcfc;
+    margin-left: 2px;
+    border-radius: 3px;
+}
+
+.package {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    width: 250px;
+    transition: transform 0.2s, border 0.2s;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
 
 .package:hover,
 .package.active {
@@ -174,4 +245,17 @@
 
 .btn:hover {
   background: #3a44d6;
+}
+
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 900;
+}
+@media screen and (max-width: 768px) {
+  .sidebar.active + .overlay {
+    display: block;
+  }
 }

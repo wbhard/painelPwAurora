@@ -8,8 +8,9 @@
   <link rel="stylesheet" href="/css/painel-home.css">
 </head>
 <body>
-
+  
   <div class="topbar">
+    <button id="toggleSidebar" class="toggle-button">☰</button>
     <div class="logo">Painel do Jogador</div>
     <div class="user-profile">
       <p><% userName %></p>
@@ -17,7 +18,7 @@
     </div>
   </div>
 
-  <div class="sidebar">
+  <div class="sidebar" id="sidebar">
     <div class="section-title">Início</div>
     <a href="#" id="linkListOfCharacters" ><i class="fas fa-home"></i><span>Meus Personagens</span></a>
 
@@ -35,6 +36,8 @@
     <div class="section-title">Configurações</div>
       <a href="#"><i class="fas fa-user-cog"></i><span>Minha conta</span></a>
   </div>
+
+  <div id="overlay" class="overlay"></div>
 
   <div class="main" id="mainContent">
     <!-- Conteúdo inicial carregado aqui via JS -->
