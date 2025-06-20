@@ -12,7 +12,7 @@
   
   <div class="login-card">
     <img src="/img/logo_aurora.png" alt="Logo PW Aurora" class="logo">
-    <h1 class="text-2xl font-bold mb-4 text-center mt-4 text-white">Acessar Conta</h1>
+    <h1 class="text-2xl font-bold mb-4 text-center text-white align-center">Acessar Conta</h1>
     <form action="/login" method="POST">
       <input class="input-field" type="text" name="name" placeholder="Login" required>
       <input class="input-field" type="password" name="password" placeholder="Senha" required>
@@ -22,8 +22,9 @@
     <% if (typeof error !== 'undefined') { %>
       <p class="text-red-500 mt-2 text-center"><%= error %></p>
     <% } %>
-
-    <p class="text-center mt-4 text-white">Não possui uma conta? <a href="/register" class="text-yellow-300 underline">Registre-se agora</a></p>
+    <div class="text-footer-card">
+      <p class="text-center text-white">Não possui uma conta? <a href="/register" class="text-yellow-300 underline">Registre-se agora</a></p>
+    </div>
   </div>
 </body>
 </html>
