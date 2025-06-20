@@ -1,3 +1,51 @@
+.menu-toggle {
+  display: none;
+  font-size: 26px;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* Mobile */
+@media screen and (max-width: 768px) {
+nav ul {
+    list-style: none;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+    display: none; /* inicia escondido em mobile */
+  }
+
+  @media screen and (min-width: 769px) {
+    nav ul {
+      display: flex; /* apenas em desktop */
+    }
+  }
+  nav ul.show {
+    display: flex;
+  }
+
+  .menu-toggle {
+    display: block;
+    font-size: 30px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: #000; /* cor de fundo da navbar */
+    position: relative;
+  }
+}
+
+
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
