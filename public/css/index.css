@@ -1,3 +1,30 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #0e0e0e;
+  color: #fff;
+  min-width: 440px;
+}
+
+/* === HEADER FIXO === */
+header {
+  background-color: #1a1a1a;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+/* === LOGO === */
+.logo img {
+  height: 50px;
+}
+
+/* === BOTÃO HAMBÚRGUER === */
 .menu-toggle {
   display: none;
   font-size: 26px;
@@ -5,185 +32,147 @@
   border: none;
   color: #fff;
   cursor: pointer;
+  margin-right: 5vh;
+  z-index: 1001;
 }
 
-/* Mobile */
-@media screen and (max-width: 768px) {
-nav ul {
-    list-style: none;
-    gap: 30px;
-    margin: 0;
-    padding: 0;
-    display: none; /* inicia escondido em mobile */
-  }
+/* === NAV DESKTOP === */
+#mainNav ul {
+  display: flex;
+  list-style: none;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+}
 
-  @media screen and (min-width: 769px) {
-    nav ul {
-      display: flex; /* apenas em desktop */
-    }
+#mainNav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+#mainNav ul li a:hover {
+  color: #07cdff;
+}
+
+/* === NAV MOBILE === */
+@media screen and (max-width: 768px) {
+  #mainNav ul {
+    display: none;
+    flex-direction: column;
+    background-color: #1a1a1a;
+    position: absolute;
+    top: 70px;
+    right: 20px;
+    width: 250px;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px #000;
   }
-  nav ul.show {
+  .mobile-only {
+    display: none !important;
+  }
+  #mainNav ul.show {
     display: flex;
   }
 
   .menu-toggle {
     display: block;
-    font-size: 30px;
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
-  }
-
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background: #000; /* cor de fundo da navbar */
-    position: relative;
-  }
-}
-
-
-body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #0e0e0e;
-    color: #fff;
-  }
-
-  header {
-    background-color: #1a1a1a;
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-  }
-
-  .logo img {
-    height: 50px;
-  }
-
-  nav ul {
-    display: flex;
-    list-style: none;
-    gap: 30px;
-    margin: 0;
-    padding: 0;
-  }
-
-  nav ul li a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: bold;
-  }
-
-  nav ul li a:hover {
-    color: #07cdff;
   }
 
   .btn-painel {
-    background: linear-gradient(to right, #47c5b0, #1e85a5);
-    color: #000;
-    padding: 10px 20px;
-    border: none;
-    font-weight: bold;
-    border-radius: 5px;
-    margin-right: 30px;
-    text-decoration: none;
-    transition: background 0.4s ease, color 0.4s ease;
+    display: none;
   }
+}
 
-  .btn-painel:hover {
-    color:#ffffff;
-    background: linear-gradient(to right, #1e85a5, #47c5b0);
-  }
+/* === BOTÕES === */
+.btn-painel, .btn-home-video {
+  background: linear-gradient(to right, #47c5b0, #1e85a5);
+  color: #000;
+  padding: 10px 20px;
+  border: none;
+  font-weight: bold;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background 0.4s ease, color 0.4s ease;
+}
 
-  .btn-home-video {
-    background: linear-gradient(to right, #47c5b0, #1e85a5);
-    color: #ddd6d6;
-    padding: 10px 20px;
-    border: none;
-    font-weight: bold;
-    border-radius: 5px;
-    text-decoration: none;
-  }
+.btn-painel:hover {
+  color: #ffffff;
+  background: linear-gradient(to right, #1e85a5, #47c5b0);
+}
 
-  
+.btn-home-video {
+  color: #ddd6d6;
+}
 
-  .hero {
-    position: relative;
-    height: 100vh;
-    overflow: hidden;
-  }
+/* === HERO SECTION === */
+.hero {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
 
-  .background-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 0;
-  }
+.background-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
 
-  .hero-content {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    text-align: center;
-    color: #fff;
-    padding-top: 40px;
-  }
+.hero-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+  color: #fff;
+  padding-top: 40px;
+}
 
-  .hero-content h1 {
-    font-size: 3em;
-    margin-top: -10px;
-  }
+.hero-content h1 {
+  font-size: 3em;
+  margin-top: -10px;
+}
 
-  .hero-content h2 {
-    font-size: 1.5em;
-    margin-top: 0px;
-    color: #ffd700;
-  }
+.hero-content h2 {
+  font-size: 1.5em;
+  margin-top: 0px;
+  color: #ffd700;
+}
 
-  .discord {
-    margin-top: 30px;
-  }
+/* === APRESENTAÇÃO / TWITCH / DISCORD === */
+.discord {
+  margin-top: 30px;
+}
 
-  .twitch-section {
-    background: #1a1a1a;
-    padding: 40px 20px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-  }
+.twitch-section,
+.apresentacao-section {
+  background: #1a1a1a;
+  padding: 40px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
 
-  .apresentacao-section {
-    background: #1a1a1a;
-    padding: 40px 20px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
+.apresentacao-section {
+  justify-content: flex-start;
+}
 
-  .twitch-iframe {
-    width: 300px;
-    height: 180px;
-    border: none;
-  }
+.twitch-iframe {
+  width: 300px;
+  height: 180px;
+  border: none;
+}
 
-  .apresentacao-section .bard {
+.apresentacao-section .bard {
   width: 500px;
   object-fit: cover;
 }
