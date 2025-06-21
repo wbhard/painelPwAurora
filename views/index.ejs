@@ -7,26 +7,7 @@
   <link rel="stylesheet" href="/css/index.css">
 </head>
 <body>
-  <header>
-    <div class="logo">
-      <img src="/img/logo_scr.png" alt="PW Aurora">
-    </div>
-
-    <nav id="mainNav">
-      <ul id="navList">
-        <li><a href="/">Início</a></li>
-        <li><a href="/sobre">Sobre o Servidor</a></li>
-        <li><a href="/noticias">Notícias</a></li>
-        <li><a href="/guias">Guias</a></li>
-        <li><a href="/download">Download</a></li>
-        <li><a href="/ranking">Ranking</a></li>
-      </ul>
-    </nav>
-    <a href="/login" class="btn-painel" style="margin-right: 10vh;">Painel do Jogador</a>
-    <button class="menu-toggle" id="menuToggle">☰</button>
-  </header>
-
-
+  <%- include('partials/header') %>
   <section class="hero">
   <video autoplay muted loop playsinline class="background-video">
     <source src="/videos/perfectcg2023.webm" type="video/webm">
@@ -64,6 +45,13 @@
     <iframe class="twitch-iframe" src="https://player.twitch.tv/?channel=pabll0js&parent=localhost" allowfullscreen></iframe>-->
   </section>
 
+  <section class="footer-page-section">
+    <div>
+      <a href="#abrir-pesquisa-google" class="btn-footer">AJUDE-NOS A MELHORAR</a>
+    </div>
+  </section>
+
   <script src="/js/index.js"></script>
 </body>
+<%- include('partials/footer') %>
 </html>

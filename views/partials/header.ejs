@@ -1,0 +1,132 @@
+<style>
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', sans-serif;
+        background-color: #0e0e0e;
+        color: #fff;
+        min-width: 440px;
+        font-family: 'Inter', sans-serif;
+    }
+    h1, h2 {
+        font-family: 'Poppins', sans-serif;
+    }
+/* === HEADER FIXO === */
+    header {
+        background-color: #1d1d1d;
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+    }
+
+/* === LOGO === */
+    .logo img {
+        height: 50px;
+    }
+
+/* === BOTÃO HAMBÚRGUER === */
+    .menu-toggle {
+        display: none;
+        font-size: 26px;
+        background: none;
+        border: none;
+        color: #fff;
+        cursor: pointer;
+        margin-right: 5vh;
+        z-index: 1001;
+    }
+
+/* === NAV DESKTOP === */
+    #mainNav ul {
+        display: flex;
+        list-style: none;
+        gap: 30px;
+        margin: 0;
+        padding: 0;
+    }
+
+    #mainNav ul li a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    #mainNav ul li a:hover {
+        color: #07cdff;
+    }
+    
+    #navList li a.active {
+        color: #f0dd30;
+        font-weight: bold;
+        border-radius: 4px;
+    }
+
+/* === NAV MOBILE === */
+    @media screen and (max-width: 768px) {
+    #mainNav ul {
+        display: none;
+        flex-direction: column;
+        background-color: #1a1a1a;
+        position: absolute;
+        top: 70px;
+        right: 20px;
+        width: 250px;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px #000;
+    }
+    .mobile-only {
+        display: none !important;
+    }
+    #mainNav ul.show {
+        display: flex;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .btn-painel {
+        display: none;
+    }
+    }
+
+/* === BOTÕES === */
+    .btn-painel{
+        background: linear-gradient(to right, #47c5b0, #1e85a5);
+        color: #000;
+        padding: 10px 20px;
+        border: none;
+        font-weight: bold;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background 0.4s ease, color 0.4s ease;
+    }
+    .btn-painel:hover {
+        color: #ffffff;
+        background: linear-gradient(to right, #1e85a5, #47c5b0);
+    }
+</style>
+<header>
+  <div class="logo">
+    <img src="/img/logo_scr.png" alt="PW Aurora">
+  </div>
+
+  <nav id="mainNav">
+    <ul id="navList">
+        <li><a href="/" class="<%= currentPage === 'home' ? 'active' : '' %>">Início</a></li>
+        <li><a href="/sobre" class="<%= currentPage === 'sobre' ? 'active' : '' %>">Sobre o Servidor</a></li>
+        <li><a href="/noticias" class="<%= currentPage === 'noticias' ? 'active' : '' %>">Notícias</a></li>
+        <li><a href="/informacoes" class="<%= currentPage === 'informacoes' ? 'active' : '' %>">Informações</a></li>
+        <li><a href="/download" class="<%= currentPage === 'download' ? 'active' : '' %>">Download</a></li>
+        <li><a href="/ranking" class="<%= currentPage === 'ranking' ? 'active' : '' %>">Ranking</a></li>
+    </ul>
+  </nav>
+  <a href="/login" class="btn-painel" style="margin-right: 10vh;">Painel do Jogador</a>
+  <button class="menu-toggle" id="menuToggle">☰</button>
+</header>
+<script src="/js/header.js"></script>

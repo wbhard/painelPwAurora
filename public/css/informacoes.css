@@ -1,0 +1,62 @@
+.hero {
+    position: relative;
+    height: 50vh;
+    overflow: hidden;
+}
+
+.section-dragon {
+    height: 50vh;
+    width: 100%;
+    background-image: url('/img/dragon-background.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center 20%;
+    position: relative;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.dragon-content {
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.dragon-content h1 {
+    font-size: 3em;
+    margin-top: -10px;
+}
+
+.dragon-content h2 {
+    font-size: 1.5em;
+    margin-top: 0px;
+    color: #ffd700;
+}
+
+.bard-section {
+    width: 100%;
+    height: 50vh;
+    object-fit: cover;
+    display: block;
+}
+
+/* === APRESENTAÇÃO === */
+.apresentacao-section {
+    background: #1a1a1a;
+    padding: 40px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.apresentacao-section {
+    display: flex;
+    justify-content: center;
+}
+
+
+

@@ -6,6 +6,7 @@
   <title>Login - Painel do Jogador</title>
   <link rel="stylesheet" href="/css/output.css" >
   <link rel="stylesheet" href="/css/login.css" >
+  <link href="https://fonts.googleapis.com/css2?family=Inter&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body class="flex items-center justify-center h-screen">
   <img src="/img/bard.png" alt="Bard" class="bard">
@@ -16,14 +17,18 @@
     <form action="/login" method="POST">
       <input class="input-field" type="text" name="name" placeholder="Login" required>
       <input class="input-field" type="password" name="password" placeholder="Senha" required>
+      
       <button class="login-button" type="submit">Entrar</button>
     </form>
-    
+
     <% if (typeof error !== 'undefined') { %>
       <p class="text-red-500 mt-2 text-center"><%= error %></p>
     <% } %>
-    <div class="text-footer-card">
-      <p class="text-center text-white">Não possui uma conta? <a href="/register" class="text-yellow-300 underline">Registre-se agora</a></p>
+  <div class="text-footer-card">
+        <a href="/recuperar-senha" class="text-blue-400 hover:underline text-sm">Recuperar senha</a>
+      </div>
+    <div class="text-footer-card-register">
+      <p class="text-center text-white">Não possui uma conta?</p><a href="/register" class="text-register">Registre-se agora</a>
     </div>
   </div>
 </body>

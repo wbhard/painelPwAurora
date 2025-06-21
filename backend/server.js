@@ -52,11 +52,33 @@ async function startServer() {
   app.use('/api', mercadopagoRoutes);
   app.use('/api', webhookRoutes);
 
+//-------Paginas-------------
   // Página inicial
   app.get('/', (req, res) => {
-    res.render('index'); // deve renderizar views/login.ejs
+    res.render('index',{ currentPage: 'home' }); // deve renderizar views/login.ejs
   });
 
+  app.get('/sobre', (req, res) => {
+    res.render('sobre', { currentPage: 'sobre' });
+  });
+  
+  app.get('/noticias', (req, res) => {
+    res.render('noticias', { currentPage: 'noticias' });
+  });
+
+  app.get('/informacoes', (req, res) => {
+    res.render('informacoes', { currentPage: 'informacoes' });
+  });
+
+  app.get('/download', (req, res) => {
+    res.render('download', { currentPage: 'download' });
+  });
+
+  app.get('/ranking', (req, res) => {
+    res.render('ranking', { currentPage: 'ranking' });
+  });
+
+//---------------------------
 
   // Rota: geração QR Code PIX
   const pixKey = "17296049782";
@@ -106,7 +128,6 @@ async function startServer() {
         experiencia: data.status.exp
       };
     });
-
     res.render('dashboard', { personagens });
   });
 

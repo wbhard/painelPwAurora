@@ -1,109 +1,14 @@
-body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #0e0e0e;
-  color: #fff;
-  min-width: 440px;
-}
 
-/* === HEADER FIXO === */
-header {
-  background-color: #1a1a1a;
-  padding: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1000;
-}
-
-/* === LOGO === */
-.logo img {
-  height: 50px;
-}
-
-/* === BOTÃO HAMBÚRGUER === */
-.menu-toggle {
-  display: none;
-  font-size: 26px;
-  background: none;
-  border: none;
-  color: #fff;
-  cursor: pointer;
-  margin-right: 5vh;
-  z-index: 1001;
-}
-
-/* === NAV DESKTOP === */
-#mainNav ul {
-  display: flex;
-  list-style: none;
-  gap: 30px;
-  margin: 0;
-  padding: 0;
-}
-
-#mainNav ul li a {
-  color: #fff;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-#mainNav ul li a:hover {
-  color: #07cdff;
-}
-
-/* === NAV MOBILE === */
-@media screen and (max-width: 768px) {
-  #mainNav ul {
-    display: none;
-    flex-direction: column;
-    background-color: #1a1a1a;
-    position: absolute;
-    top: 70px;
-    right: 20px;
-    width: 250px;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px #000;
-  }
-  .mobile-only {
-    display: none !important;
-  }
-  #mainNav ul.show {
-    display: flex;
-  }
-
-  .menu-toggle {
-    display: block;
-  }
-
-  .btn-painel {
-    display: none;
-  }
-}
-
-/* === BOTÕES === */
-.btn-painel{
-  background: linear-gradient(to right, #47c5b0, #1e85a5);
-  color: #000;
-  padding: 10px 20px;
-  border: none;
-  font-weight: bold;
-  border-radius: 5px;
-  text-decoration: none;
-  transition: background 0.4s ease, color 0.4s ease;
-}
 .btn-home-video {
   display: flex;
-  background: linear-gradient(to right, #47c5b0, #1e85a5);
+  background: linear-gradient(to right, #1e85a5);
   padding: 10px 20px;
   border: none;
   font-weight: bold;
   text-decoration: none;
-  height: 30px;
+  height: 45px;
+  width: 140px;
+  justify-content: center;
   align-items: center;
   text-align: center;
   color: #ddd6d6;
@@ -118,10 +23,7 @@ header {
 .btn-home-video:hover {
   transform: scale(1.05);
 }
-.btn-painel:hover {
-  color: #ffffff;
-  background: linear-gradient(to right, #1e85a5, #47c5b0);
-}
+
 
 /* === HERO SECTION === */
 .hero {
@@ -193,3 +95,27 @@ header {
   width: 500px;
   object-fit: cover;
 }
+
+.footer-page-section{
+  background: #242424;
+  padding: 20px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.btn-footer{
+  background: #38383800;
+  color: #ffffff;
+  padding: 10px 20px;
+  border: none;
+  font-weight: bold;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+.btn-footer:hover {
+  background:#383838cb;
+}
+

@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="/css/output.css" rel="stylesheet">
   <link href="/css/register.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <title>Registrar - Painel Jogador</title>
 </head>
 <body class="flex items-center justify-center min-h-screen overflow-y-auto">
@@ -31,8 +32,10 @@
       </div>
       <button type="submit" class="register-button">Registrar</button>
     </form>
-    <p class="text-center mt-4 text-white">Já tem uma conta? <a href="/login" class="text-yellow-300 underline">Acessar Conta</a></p>
-  </div>
+    <div class="text-footer-card-register">
+      <p class="text-center mt-4 text-white">Já tem uma conta?</p><a href="/login" class="text-register">Acessar Conta</a>
+    </div>
+    </div>
 
   <% if (mensagem) { %>
   <div class="toast" id="toast"><%= mensagem %></div>
