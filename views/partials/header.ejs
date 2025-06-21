@@ -116,16 +116,19 @@
     <img src="/img/logo_scr.png" alt="PW Aurora">
   </div>
 
-  <nav id="mainNav">
+  <% let page = typeof currentPage !== 'undefined' ? currentPage : ''; %>
+
+    <nav id="mainNav">
     <ul id="navList">
-        <li><a href="/" class="<%= currentPage === 'home' ? 'active' : '' %>">Início</a></li>
-        <li><a href="/sobre" class="<%= currentPage === 'sobre' ? 'active' : '' %>">Sobre o Servidor</a></li>
-        <li><a href="/noticias" class="<%= currentPage === 'noticias' ? 'active' : '' %>">Notícias</a></li>
-        <li><a href="/informacoes" class="<%= currentPage === 'informacoes' ? 'active' : '' %>">Informações</a></li>
-        <li><a href="/download" class="<%= currentPage === 'download' ? 'active' : '' %>">Download</a></li>
-        <li><a href="/ranking" class="<%= currentPage === 'ranking' ? 'active' : '' %>">Ranking</a></li>
+        <li><a href="/" class="<%= page === 'home' ? 'active' : '' %>">Início</a></li>
+        <li><a href="/sobre" class="<%= page === 'sobre' ? 'active' : '' %>">Sobre o Servidor</a></li>
+        <li><a href="/noticias" class="<%= page === 'noticias' ? 'active' : '' %>">Notícias</a></li>
+        <li><a href="/informacoes" class="<%= page === 'informacoes' ? 'active' : '' %>">Informações</a></li>
+        <li><a href="/download" class="<%= page === 'download' ? 'active' : '' %>">Download</a></li>
+        <li><a href="/ranking" class="<%= page === 'ranking' ? 'active' : '' %>">Ranking</a></li>
     </ul>
-  </nav>
+    </nav>
+
   <a href="/login" class="btn-painel" style="margin-right: 10vh;">Painel do Jogador</a>
   <button class="menu-toggle" id="menuToggle">☰</button>
 </header>
